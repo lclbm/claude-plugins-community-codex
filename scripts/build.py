@@ -70,13 +70,15 @@ def build(root=ROOT, upstream_sha=None, check=False):
                            "https://github.com/anthropics/claude-plugins-community\n"
                            f"Source commit: {provenance['commit']}\n"
                            "Codex packaging and instruction edits by lclbm.\n"
-                           "Runtime, references, and upstream examples are unmodified.\n"
+                           "Runtime has checked Codex wording edits; references and examples are unmodified.\n"
                            "Repository LICENSE and upstream license metadata are retained.\n").encode()}
     prefix = "skills/html-plan/"
     for name, content in source.items():
         if name.startswith(prefix):
             expected["skills/html-plan-codex/" + name[len(prefix):]] = content
     expected["skills/html-plan-codex/SKILL.md"] = skill
+    runtime_path = "skills/html-plan-codex/runtime/htmlplan.js"
+    expected[runtime_path] = adapt(expected[runtime_path].decode(), json.loads(adapters["runtime-patches.json"])).encode()
     package = root / PACKAGE
     if check:
         if not package.exists() or files(package) != expected:

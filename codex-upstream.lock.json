@@ -2,6 +2,6 @@
   "repository": "anthropics/claude-plugins-community",
   "commit": "f60f0454df3045f724c43c6346ec80bdcc3472b2",
   "upstreamVersion": "1.0.0",
-  "fingerprint": "54e6be9abb6594555cbc52d6b46748b31da6e6632572fe4c5172180d68a9a666",
-  "version": "0.1.0"
+  "fingerprint": "6a1841c70e7c1fafe82648d471a26378793d0fb2b9ea16686de2ec8f6ec3cda2",
+  "version": "0.1.1"
 }

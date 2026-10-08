@@ -1,0 +1,6 @@
+[
+  {"name": "comment placeholder", "old": "Comment for Claude…", "new": "Comment for Codex…"},
+  {"name": "copy confirmation", "old": "Copied — paste it back to Claude", "new": "Copied — paste it back to Codex"},
+  {"name": "response hint", "old": "Copy this and paste it to Claude.", "new": "Copy this and paste it to Codex."},
+  {"name": "inactive send hint", "old": "This goes to Claude when you press Send.", "new": "This goes to the connected agent when you press Send."}
+]

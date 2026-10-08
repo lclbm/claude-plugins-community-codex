@@ -49,7 +49,7 @@ python3 tests/check.py
 codex plugin list --marketplace lclbm-visual-tools --available --json
 ```
 
-测试覆盖：生成内容重现、不重复升版、源码变化升版、上游指令漂移停止、失败保留旧包、运行时完全一致，以及中文与上游样例打包。产物在已忽略的 `artifacts/`。中文版检查页源文件是 `tests/smoke.html`。
+测试覆盖：生成内容重现、不重复升版、源码变化升版、上游指令漂移停止、失败保留旧包、运行时文案的受控差异、draft 发布恢复，以及中文与上游样例打包。产物在已忽略的 `artifacts/`。中文版检查页源文件是 `tests/smoke.html`。
 
 此包只包含技能和原有 runtime，不增加服务、后台进程、MCP 或网页托管。桌面客户端的技能加载与完整实际项目流程仍需在安装后的新会话中验收；打包通过不能替代这项验证。
 
@@ -57,4 +57,4 @@ codex plugin list --marketplace lclbm-visual-tools --available --json
 
 原始 html-plan 作者是 **Thariq Shihipar**；Codex 指令调整与发布包装由 **lclbm** 维护。本项目是个人适配，并非 Anthropic 或 OpenAI 官方产品。
 
-原始 runtime、references 和 examples 保持字节一致。仓库根部的 Apache-2.0 `LICENSE` 原样保留，包内也保留该文件、`NOTICE`、上游 README 及声明 MIT 的原版 plugin 元信息。两个来源声明均保留，不据此重写上游授权。
+`html-plan/` 中的原始文件保持字节一致。分发包只对 runtime 做四处有匹配检查的反馈引导文案替换，指向 Codex 或当前连接的 agent；交互行为、CSS、references 和 examples 保留上游内容。仓库根部的 Apache-2.0 `LICENSE` 原样保留，包内也保留该文件、`NOTICE`、上游 README 及声明 MIT 的原版 plugin 元信息。两个来源声明均保留，不据此重写上游授权。
