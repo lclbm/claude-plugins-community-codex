@@ -1,0 +1,16 @@
+{
+  "name": "html-plan-codex",
+  "description": "把复杂方案做成可展开、可批注的 HTML，并保留代码证据和验证状态。",
+  "author": { "name": "lclbm", "url": "https://github.com/lclbm" },
+  "homepage": "https://github.com/lclbm/claude-plugins-community-codex",
+  "repository": "https://github.com/lclbm/claude-plugins-community-codex",
+  "skills": "./skills/",
+  "keywords": ["plan", "rfc", "html", "visualization", "codex"],
+  "interface": {
+    "displayName": "HTML Plan for Codex",
+    "shortDescription": "中文交互方案、逐层证据、节点批注和反馈汇总。",
+    "developerName": "lclbm",
+    "category": "Productivity",
+    "defaultPrompt": ["把这个跨系统方案做成可展开、可批注的 HTML，关联原始证据和验证状态。"]
+  }
+}

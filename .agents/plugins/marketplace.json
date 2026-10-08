@@ -1,0 +1,12 @@
+{
+  "name": "lclbm-visual-tools",
+  "interface": { "displayName": "LiuCai Visual Tools" },
+  "plugins": [
+    {
+      "name": "html-plan-codex",
+      "source": { "source": "local", "path": "./plugins/html-plan-codex" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}

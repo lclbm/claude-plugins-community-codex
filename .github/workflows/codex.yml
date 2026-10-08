@@ -1,0 +1,73 @@
+name: Codex package
+
+on:
+  push:
+    branches: [codex]
+  pull_request:
+    branches: [codex]
+  schedule:
+    - cron: '37 21 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: codex-${{ github.event_name == 'pull_request' && github.ref || 'publish' }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python3 tests/check.py
+
+  sync-and-release:
+    needs: check
+    if: github.repository == 'lclbm/claude-plugins-community-codex' && github.event_name != 'pull_request' && github.ref == 'refs/heads/codex'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Finish the previous verified release before updating
+        run: |
+          python3 tests/check.py
+          bash scripts/release.sh
+      - name: Synchronize the complete upstream mirror
+        run: gh api --method POST repos/lclbm/claude-plugins-community-codex/merge-upstream -f branch=main
+      - name: Import html-plan at a specific upstream commit
+        run: |
+          set -euo pipefail
+          git fetch https://github.com/anthropics/claude-plugins-community.git main
+          upstream_sha=$(git rev-parse FETCH_HEAD)
+          git rm -r --ignore-unmatch html-plan
+          git restore --source="$upstream_sha" --staged --worktree -- html-plan LICENSE
+          python3 scripts/build.py --upstream-sha "$upstream_sha"
+          python3 tests/check.py
+      - name: Publish the verified branch
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add html-plan LICENSE plugins codex-upstream.lock.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Sync html-plan and regenerate Codex package"
+            git push origin HEAD:codex
+          fi
+      - name: Package and publish a resumable release
+        run: bash scripts/release.sh

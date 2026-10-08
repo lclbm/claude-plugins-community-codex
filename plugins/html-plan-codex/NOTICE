@@ -1,0 +1,6 @@
+Based on html-plan by Thariq Shihipar, from
+https://github.com/anthropics/claude-plugins-community
+Source commit: f60f0454df3045f724c43c6346ec80bdcc3472b2
+Codex packaging and instruction edits by lclbm.
+Runtime, references, and upstream examples are unmodified.
+Repository LICENSE and upstream license metadata are retained.

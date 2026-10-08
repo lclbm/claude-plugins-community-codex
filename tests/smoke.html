@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codex 中文方案反馈</title>
+<link rel="stylesheet" href="htmlplan.css">
+<script src="htmlplan.js" defer></script>
+<body>
+<header>
+  <h1>Codex 中文方案反馈</h1>
+  <details class="thread"><summary>需求原文</summary>
+    <doc-quote via="prompt" from="用户">写一个codex的适配plugin版本 然后让仓库和版本可以随着上游自动更新</doc-quote>
+  </details>
+</header>
+<main><doc-plan>
+  <doc-claim><p>你可以逐层查看方案和证据。</p>
+    <doc-mock frame="none" w="400" caption="演示：这些状态不代表真实项目的验收结果。"><template>
+      <div style="padding:16px;font:14px/1.6 system-ui;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px">
+        <strong data-ref="status">Codex 插件适配</strong>
+        <p style="margin:8px 0 0">提案：默认中文，沿用已确认的授权。</p>
+        <p style="margin:8px 0 0">验证：此处是供交互检查的样例。</p>
+      </div>
+    </template></doc-mock>
+    <doc-claim><p>每个结论可以关联原始出处。</p>
+      <doc-code title="插件描述 · 当前文件" src="codex/plugin.json" lines="1-7" lang="json"></doc-code>
+    </doc-claim>
+  </doc-claim>
+  <doc-claim><p>你可以在对应节点选择和留言。</p>
+    <doc-code title="反馈字段 · 示意" lang="json"><script type="text/plain">{"language":"zh-CN","feedback":"复制到当前会话"}</script></doc-code>
+    <doc-ask id="example-language"><p>此示例用哪种语言？</p>
+      <label><input type="radio" name="language" value="zh-CN" checked>简体中文</label>
+      <label><input type="radio" name="language" value="en">English</label>
+    </doc-ask>
+    <doc-note tone="info">演示选项。复制反馈不会自动发送新消息。</doc-note>
+  </doc-claim>
+  <doc-claim aux="scope"><p>此页面只演示反馈流程。</p><ul><li>真实项目的实施、验证和发布状态以原始证据为准。</li></ul></doc-claim>
+</doc-plan></main>
+</body></html>

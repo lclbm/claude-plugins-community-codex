@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Codex adaptation near upstream line 2",
+    "old": "name: html-plan\ndescription: Write an implementation plan as one interactive HTML page - a tree of claims (why › what › how › where), each proved by one exhibit (UI mockup, state machine, call stack, schema or code), with the decisions the user has to make placed on the claim they change. Use when the user types /html-plan, or asks for a plan, RFC or design before building something that touches more than a couple of files.\n",
+    "new": "name: html-plan-codex\ndescription: 将复杂实施计划、RFC 或架构方案做成可展开、可批注的 HTML，关联行为、调用关系、schema 和代码证据。用户点名 html-plan-codex，或多边界方案需要可视化审阅与决策时使用；简单明确的局部修改直接实施。\n"
+  },
+  {
+    "name": "Codex adaptation near upstream line 6",
+    "old": "# html-plan\n",
+    "new": "# html-plan-codex\n"
+  },
+  {
+    "name": "Codex adaptation near upstream line 8",
+    "old": "Plan this: $ARGUMENTS\n",
+    "new": "Plan the user’s current request. `$html-plan-codex` explicitly selects this skill in Codex.\n"
+  },
+  {
+    "name": "Codex adaptation near upstream line 10",
+    "old": "You write **one HTML file by hand**. It holds a tree of claims. A small runtime draws the tree and lets the reader open it level by level, answer decisions, edit schemas, comment on anything, and copy one response back to you. Do not start building until that response arrives.\n",
+    "new": "You write **one HTML file by hand**. It holds a tree of claims. A small runtime draws the tree and lets the reader open it level by level, answer decisions, edit schemas, comment on anything, and copy one response back to you. Follow the user’s chosen mode: for design-only or an explicit review gate, hand over the plan and wait; for already-authorized implementation, continue within that scope. Ask only about unresolved decisions that materially change direction, cost, or risk; existing decisions remain valid.\n"
+  },
+  {
+    "name": "Codex adaptation near upstream line 80",
+    "old": "6. **A decision sits on the claim it changes**, after the exhibit and before any child claims. Check the option you would pick. If an option removes a claim, say so: “claim 4 goes”. Ask only about forks that change what you build: 2 to 5 per plan.\n",
+    "new": "6. **A decision sits on the claim it changes**, after the exhibit and before any child claims. Check the option you would pick. If an option removes a claim, say so: “claim 4 goes”. Ask only about unresolved forks that materially change what you build. Zero decisions is valid; never invent questions to fill a quota.\n"
+  },
+  {
+    "name": "Codex adaptation near upstream line 93",
+    "old": "**Write all prose in ASD-STE100 Simplified Technical English (STE). Use no other style.** This rule applies to claims, captions, pins, questions, options and notes.\n",
+    "new": "Write user-facing claims, captions, questions, notes and example content in Simplified Chinese unless the user requests another language. Set `lang=\"zh-CN\"` on Chinese pages. Preserve code identifiers, source quotes and existing product labels. Use short sentences, one term per concept, and say who does what. English word-count and STE lint warnings are advisory for Chinese; structural errors still require repair. The upstream runtime’s built-in controls remain English.\n"
+  },
+  {
+    "name": "Codex adaptation near upstream line 95",
+    "old": "- **Approved words only.** Use a word only if the STE dictionary approves it, and only with its approved meaning and part of speech. If you are not sure about a word, use the most common short word that has the same meaning.\n- **Technical names and technical verbs are permitted.** Names from the code (`createScheduled()`, `scheduled_messages`), product names, UI labels and units are technical names. Verbs of the field (*compile*, *deploy*, *merge*, *render*) are technical verbs. Use the same name for the same thing each time.\n- **Short sentences.** One topic for each sentence. An instruction has 20 words at most. A description has 25 words at most. A paragraph has 6 sentences at most.\n- **Active voice.** Say who does what: “The worker claims the row.” Not “The row is claimed.”\n- **Simple tenses.** Use the present, the past and the future: *sends*, *sent*, *will send*. Do not write *has sent* or *is sending*. Do not use an *-ing* word unless it is part of a technical name.\n- **Instructions are commands.** “Run the migration.” Write one instruction in each sentence. Put the condition first: “If the claim fails, stop.”\n- **`must` and `can`.** Use *must* for a rule and *can* for what is possible. Do not use *should*, *may* or *might*.\n- **Noun groups of 3 words at most.** “The retry limit of the send worker.” Not “the send worker retry limit setting”.\n- **Full grammar.** Keep *the*, *a* and *an*. Do not use contractions, idioms, metaphors or jokes.\n\n| Do not write | Write |\n|---|---|\n| utilize, leverage | use |\n| perform, carry out | do |\n| ensure, verify, check (as a verb) | make sure |\n| demonstrate, indicate | show |\n| commence, begin · terminate | start · stop |\n| obtain · provide | get · give |\n| prior to · in order to | before · to |\n| however · additionally | but · also |\n| about 50 | approximately 50 |\n\nThese are not STE and stay as they are: the words of the user in a `doc-quote`, code, and the text on a UI mockup.\n\n- A caption is one sentence: what to notice. A pin is a clause. An option's `<small>` is 12 words at most.\n- No paragraph between a claim and its exhibit. If the exhibit needs explaining, pick a better exhibit.\n\n`pack.mjs` warns about some STE errors: common unapproved words, contractions, *has/have* tenses, the passive voice and long sentences. It does not know the full dictionary, so a clean run does not prove that the text is STE.\n",
+    "new": "Keep each important claim linked to its source and version/date; distinguish observed facts, inferences, proposals, implementation and verified behavior. Existing owner documents remain authoritative. Store sources and unverified status in nearby captions or `doc-note` blocks, rather than creating a parallel facts document.\n"
+  },
+  {
+    "name": "Codex adaptation near upstream line 128",
+    "old": "3. **Add the how and where claims, then the exhibits, then the decisions.** Read `references/blocks.md` for syntax. Save the page where the project keeps docs, or in a scratch folder.\n",
+    "new": "3. **Add the how and where claims, then the exhibits, then the decisions.** Read `references/blocks.md` for syntax. Save editable source with the task’s artifacts and the packed deliverable in its output directory, following workspace rules. Use a stable page per plan and update it as evidence changes.\n"
+  },
+  {
+    "name": "Codex adaptation near upstream line 131",
+    "old": "6. **Hand it over** (next section) with one line: “Four decisions. The defaults are what I would build.”\n7. **Act on the response.** Apply changed decisions, schema edits, struck calls and each comment. Refer to claims by number. If the answers change the shape of the plan, update the page and send it again. Then build.\n",
+    "new": "6. **Hand it over** (next section) with an absolute file link and a short Chinese description of any real decisions. Open a browser only when requested or authorized; prefer background verification. When available, use open_in_codex to show the packed file in the current chat. This standalone page does not automatically connect to the Codex conversation.\n7. **Act on the response.** Apply changed decisions, schema edits, struck calls and each comment. Refer to claims by number. If the answers change the shape of the plan, update the same page. Continue according to the authorized mode; a page update alone does not add a new approval gate.\n"
+  }
+]
