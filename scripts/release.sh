@@ -13,7 +13,7 @@ if gh release view "$tag" --json isDraft,assets > artifacts/release.json; then
     exit 0
   fi
 else
-  gh release create "$tag" --target "$(git rev-parse HEAD)" --draft --title "HTML Plan for Codex $version" --notes-file README.md
+  gh release create "$tag" --target "$(git rev-parse HEAD)" --draft --title "HTML Plan for Codex $version" --notes-file CODEX.md
 fi
 gh release upload "$tag" "$zip_path" "$zip_path.sha256" --clobber
 gh release edit "$tag" --draft=false

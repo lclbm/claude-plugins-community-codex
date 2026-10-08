@@ -5,7 +5,7 @@
     "name": "lclbm",
     "url": "https://github.com/lclbm"
   },
-  "homepage": "https://github.com/lclbm/claude-plugins-community-codex",
+  "homepage": "https://github.com/lclbm/claude-plugins-community-codex/blob/codex/CODEX.md",
   "repository": "https://github.com/lclbm/claude-plugins-community-codex",
   "skills": "./skills/",
   "keywords": [
@@ -24,5 +24,5 @@
       "把这个跨系统方案做成可展开、可批注的 HTML，关联原始证据和验证状态。"
     ]
   },
-  "version": "0.1.1"
+  "version": "0.1.2"
 }

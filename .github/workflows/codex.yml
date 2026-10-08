@@ -34,6 +34,7 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: write
+      actions: write
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
@@ -50,24 +51,32 @@ jobs:
           bash scripts/release.sh
       - name: Synchronize the complete upstream mirror
         run: gh api --method POST repos/lclbm/claude-plugins-community-codex/merge-upstream -f branch=main
-      - name: Import html-plan at a specific upstream commit
+      - name: Merge the complete upstream history
         run: |
           set -euo pipefail
-          git fetch https://github.com/anthropics/claude-plugins-community.git main
+          git fetch origin main
           upstream_sha=$(git rev-parse FETCH_HEAD)
-          git rm -r --ignore-unmatch html-plan
-          git restore --source="$upstream_sha" --staged --worktree -- html-plan LICENSE
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git merge --no-commit --no-ff "$upstream_sha"
           python3 scripts/build.py --upstream-sha "$upstream_sha"
           python3 tests/check.py
       - name: Publish the verified branch
         run: |
           set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add html-plan LICENSE plugins codex-upstream.lock.json
-          if ! git diff --cached --quiet; then
+          if ! git diff --cached --quiet || git rev-parse --verify -q MERGE_HEAD > /dev/null; then
             git commit -m "Sync html-plan and regenerate Codex package"
+            git merge-base --is-ancestor FETCH_HEAD HEAD
             git push origin HEAD:codex
           fi
+          git merge-base --is-ancestor FETCH_HEAD HEAD
+      - name: Keep upstream workflows intact and inactive in this fork
+        run: |
+          set -euo pipefail
+          gh api repos/lclbm/claude-plugins-community-codex/actions/workflows --jq '.workflows[] | select(.path != ".github/workflows/codex.yml" and .state != "disabled_manually") | .id' |
+          while read -r workflow_id; do
+            gh api --method PUT "repos/lclbm/claude-plugins-community-codex/actions/workflows/$workflow_id/disable"
+          done
       - name: Package and publish a resumable release
         run: bash scripts/release.sh
